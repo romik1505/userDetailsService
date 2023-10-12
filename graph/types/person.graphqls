@@ -1,0 +1,59 @@
+type Person {
+    id: ID!
+    name: String!
+    surname: String!
+    patronymic: String
+    age: Int!
+    gender: String!
+    nationality: String!
+    created_at: Time!
+    updated_at: Time
+}
+
+scalar Time
+
+input PersonsFilter {
+    ids: [Int]
+    surname: String
+    name: String
+    ageLtOrEq: Int
+    ageEq: Int
+    ageGtOrEq: Int
+    genderIn: [String!]
+    nationalityIn: [String!]
+    page: Int
+    limit: Int
+}
+
+type PersonPagination {
+    items: [Person!]
+    totalItems: Int
+}
+
+input NewPerson {
+    name: String!
+    surname: String!
+    patronymic: String
+}
+
+input EditPerson {
+    id: ID!
+    name: String
+    surname: String
+    patronymic: String
+    age: Int
+    gender: String
+    nationality: String
+}
+
+type CreatePersonPayload {
+    status: String!
+}
+
+type EditPersonPayload {
+    person: Person!
+}
+
+type DeletePersonPayload {
+    status: String!
+}

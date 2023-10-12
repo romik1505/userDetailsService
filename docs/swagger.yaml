@@ -1,0 +1,184 @@
+basePath: /api/v1
+definitions:
+  common.CreatePersonRequest:
+    properties:
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  common.Person:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      gender:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      nationality:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: Person API
+  version: "1.0"
+paths:
+  /person:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: person for delete
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: delete person by id
+      tags:
+      - persons
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: age_eq
+        type: integer
+      - in: query
+        name: age_gt_or_eq
+        type: integer
+      - in: query
+        name: age_lt_or_eq
+        type: integer
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: gender_in
+        type: array
+      - collectionFormat: csv
+        in: query
+        items:
+          type: integer
+        name: ids
+        type: array
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: nationality_in
+        type: array
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: surname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.Person'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get list persons with pagination
+      tags:
+      - persons
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: person for update
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/common.Person'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: update person by id
+      tags:
+      - persons
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: person info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/common.CreatePersonRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Добавить нового человека
+      tags:
+      - persons
+swagger: "2.0"
